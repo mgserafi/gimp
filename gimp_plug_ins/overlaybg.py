@@ -8,22 +8,24 @@ from gimpfu import *
 DATA_DIR = "D:/data"
 DATA_PROC = "C:/Users/Genevieve/Documents/DataSets/Gimp/Processed"
 
-def overlay_bg(obj,n_obj,n,img_w,img_h):
-	#run_mode = GIMP_RUN_NONINTERACTIVE
+def overlay_bg(obj,fname,n_obj,n,img_w,img_h):
 
-	if n_obj > 1:
+	if (n_obj > 1):
+		obj_list = list()
 		obj_names = str.split(obj)
-		objs = list()
 		for i in range(n_obj):
 		    # store image names
-    		for img in os.listdir("%s/%s/clean" % (DATA_PROC, obj_names[i])):
-    		objs.append("%s/%s/clean/%s" % (DATA_PROC, obj, img))
+			temp = list()
+			for img in os.listdir("%s/%s" % (DATA_PROC, obj_names[i])):
+				temp.append("%s/%s/%s" % (DATA_PROC, obj_names[i], img))
+			obj_list.append(temp)
 
-    # store image names
-    for img in os.listdir("%s/%s/clean" % (DATA_PROC, obj_names[i])):
-    	objs.append("%s/%s/clean/%s" % (DATA_PROC, obj, img))
-    
-    for i in range(n):
+	else:
+		objs = list()
+		for img in os.listdir("%s/%s" % (DATA_PROC, obj)):
+			objs.append("%s/%s/%s" % (DATA_PROC, obj, img))
+
+	for i in range(n):
 
 		#create image	
 		img = gimp.Image(4000, 3000, RGB)
@@ -39,9 +41,12 @@ def overlay_bg(obj,n_obj,n,img_w,img_h):
 		img.add_layer(bg_layer)
 		pdb.gimp_image_lower_item_to_bottom(img, bg_layer)
 
-		### loop through objects
-		for i in range(n_obj):
+		# loop through objects
+		for j in range(n_obj):
 
+			if (n_obj > 1):
+				obj = obj_names[j]
+				objs = obj_list[j]
 
 			#upload image as individual layer
 			obj_image = None
@@ -67,31 +72,29 @@ def overlay_bg(obj,n_obj,n,img_w,img_h):
 			#save mask
 			pdb.gimp_layer_resize_to_image_size(obj_layer)
 			mask = obj_layer.create_mask(2)
-			pdb.file_png_save(img, mask, ("%s/gimp_renders/%s/%s_%d_mask.png" % (DATA_DIR, obj, obj, i)),
-												 "raw_filename", 0, 9, 1, 0, 0, 1, 1)
-
-		###
+			pdb.file_png_save(img, mask, 
+								("%s/gimp_renders/%s/%s_%d_mask_%d.png" % (DATA_DIR, fname, fname, i, j)),
+								 "raw_filename", 0, 9, 1, 0, 0, 1, 1)
 
 		#save current image to file
 		layer = pdb.gimp_image_merge_visible_layers(img, 1)
-		pdb.file_png_save(img, layer, ("%s/gimp_renders/%s/%s_%d.png" % (DATA_DIR, obj, obj, i)),
+		pdb.file_png_save(img, layer, ("%s/gimp_renders/%s/%s_%d.png" % (DATA_DIR, fname, fname, i)),
 											 "raw_filename", 0, 9, 1, 0, 0, 1, 1)
 		#display image
 		# gimp.Display(img)      
 
-# TODO: Add more than one object
-
 register(
         "python_fu_overlay_bg",
-        "Save overlaying images to files",
+        "Save overlaying images to files. Separate object names with space",
     	"Separate object names with space",
     	"Genevieve Serafin",
-    	"Applied Brain Research",
+    	"ABR",
     	"2013",
         "<Toolbox>/Xtns/Languages/Python-Fu/Test/_Overlay",
         "",
         [
         	(PF_STRING, "obj", 	"Object(s) to Overlay", 	"munchkin_white_hot_duck_bath_toy"),
+        	(PF_STRING, "fname", 	"Filename to save to", 	"munchkin_white_hot_duck_bath_toy"),
         	(PF_INT, 	"n_obj", 	"Number of objects", 	1),
         	(PF_INT, 	"n", 	"Number of images", 	1),
         	(PF_INT, 	"img_w", 	"Output width", 	640), 
