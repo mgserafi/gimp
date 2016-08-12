@@ -6,7 +6,6 @@ import random
 from gimpfu import *
 
 DATA_DIR = "D:/data"
-DATA_PROC = "C:/Users/Genevieve/Documents/DataSets/Gimp/Processed"
 
 def overlay_bg(obj,fname,n_obj,n,img_w,img_h):
 
@@ -93,8 +92,8 @@ register(
         "<Toolbox>/Xtns/Languages/Python-Fu/Test/_Overlay",
         "",
         [
-        	(PF_STRING, "obj", 	"Object(s) to Overlay", 	"munchkin_white_hot_duck_bath_toy"),
-        	(PF_STRING, "fname", 	"Filename to save to", 	"munchkin_white_hot_duck_bath_toy"),
+        	(PF_STRING, "obj", 	"Object(s) to Overlay", 	"object"),
+        	(PF_STRING, "fname", 	"Filename to save to", 	"object"),
         	(PF_INT, 	"n_obj", 	"Number of objects", 	1),
         	(PF_INT, 	"n", 	"Number of images", 	1),
         	(PF_INT, 	"img_w", 	"Output width", 	640), 
