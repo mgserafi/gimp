@@ -74,12 +74,12 @@ def overlay_bg(obj,fname,n_obj,n,img_w,img_h):
 			pdb.gimp_layer_resize_to_image_size(obj_layer)
 			mask = obj_layer.create_mask(2)
 			pdb.file_png_save(img, mask, 
-								("%s/gimp_renders/%s/%s_%d_mask_%d.png" % (DATA_DIR, fname, fname, i+9999, j)),
+								("%s/gimp_renders/%s/%s_%d_mask_%d.png" % (DATA_DIR, fname, fname, i, j)),
 								 "raw_filename", 0, 9, 1, 0, 0, 1, 1)
 
 		#save current image to file
 		layer = pdb.gimp_image_merge_visible_layers(img, 1)
-		pdb.file_png_save(img, layer, ("%s/gimp_renders/%s/%s_%d.png" % (DATA_DIR, fname, fname, i+9999)),
+		pdb.file_png_save(img, layer, ("%s/gimp_renders/%s/%s_%d.png" % (DATA_DIR, fname, fname, i)),
 											 "raw_filename", 0, 9, 1, 0, 0, 1, 1)
 		#display image
 		# gimp.Display(img)      
@@ -94,15 +94,9 @@ register(
         "<Toolbox>/Xtns/Languages/Python-Fu/Test/_Overlay",
         "",
         [
-<<<<<<< HEAD
-        	(PF_STRING, "obj", 	"Object(s) to Overlay", 	"objecy"),
-        	(PF_STRING, "fname", 	"Filename to save to", 	"object"),
-        	(PF_INT, 	"n_obj", 	"Number of objects", 	3),
-=======
         	(PF_STRING, "obj", 	"Object(s) to Overlay", 	"object"),
         	(PF_STRING, "fname", 	"Filename to save to", 	"object"),
         	(PF_INT, 	"n_obj", 	"Number of objects", 	1),
->>>>>>> 38807aa1980c52e0d31300712045cd7a7e5ef5eb
         	(PF_INT, 	"n", 	"Number of images", 	1),
         	(PF_INT, 	"img_w", 	"Output width", 	640), 
         	(PF_INT, 	"img_h", 	"Output height", 	640),  
