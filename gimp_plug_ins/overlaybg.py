@@ -94,9 +94,15 @@ register(
         "<Toolbox>/Xtns/Languages/Python-Fu/Test/_Overlay",
         "",
         [
+<<<<<<< HEAD
         	(PF_STRING, "obj", 	"Object(s) to Overlay", 	"objecy"),
         	(PF_STRING, "fname", 	"Filename to save to", 	"object"),
         	(PF_INT, 	"n_obj", 	"Number of objects", 	3),
+=======
+        	(PF_STRING, "obj", 	"Object(s) to Overlay", 	"object"),
+        	(PF_STRING, "fname", 	"Filename to save to", 	"object"),
+        	(PF_INT, 	"n_obj", 	"Number of objects", 	1),
+>>>>>>> 38807aa1980c52e0d31300712045cd7a7e5ef5eb
         	(PF_INT, 	"n", 	"Number of images", 	1),
         	(PF_INT, 	"img_w", 	"Output width", 	640), 
         	(PF_INT, 	"img_h", 	"Output height", 	640),  
